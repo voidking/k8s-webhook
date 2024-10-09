@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: testpod
+    webhook: "true"
+  name: testpod
+spec:
+  containers:
+  #- image: alpine:3.7.3
+  - image: voidking/debian:bookworm-slim-curl
+    name: testpod
+    resources: {}
+    command: ["/bin/sh", "-c"]
+    args:
+    - tail -f /dev/null
+status: {}

@@ -1,0 +1,12 @@
+{
+
+    "kind": "AdmissionReview",
+    "request": {
+        "uid": "e911857d-c318-11e8-bbad-025000000001",
+        "kind": {
+            "kind": "Namespace"
+        },
+        "operation": "CREATE",
+        "object": {"metadata": {"name": "test","uid": "e911857d-c318-11e8-bbad-025000000001","creationTimestamp": "2018-09-28T12:20:39Z"}}
+    }
+}

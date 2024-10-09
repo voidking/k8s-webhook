@@ -1,0 +1,10 @@
+http:
+  addr: 0.0.0.0:8080
+https:
+  addr: 0.0.0.0:8443
+  enable: true
+  cert: /etc/k8s-webhook/cert/cert.pem
+  key: /etc/k8s-webhook/cert/key.pem
+debug: true
+timezone: Asia/Shanghai
+logpath: ./logs

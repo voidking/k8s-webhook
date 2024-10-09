@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webhook
+  namespace: k8s-webhook
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+  - name: https
+    port: 8443
+    targetPort: 8443
+
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: webhook
+  namespace: k8s-webhook
+subsets:
+- addresses:
+  - ip: 192.168.56.101
+  ports:
+  - name: http
+    port: 8080
+  - name: https
+    port: 8443
