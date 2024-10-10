@@ -28,7 +28,7 @@ go test -run TestServeReturnsCorrectJson  k8s-webhook/internal/server
 
 ## Prepare K8S Resources
 ```bash
-./install-dev.sh
+./scripts/install-dev.sh
 ```
 
 ## Run Webhook Service Locally
@@ -110,8 +110,8 @@ docker build \
 # Deploy to K8S
 ## Deploy all components
 ```bash
-# ./uninstall-dev.sh
-./install.sh
+# ./scripts/uninstall-dev.sh
+./scripts/install.sh
 ```
 
 ## Test Webhook Service
