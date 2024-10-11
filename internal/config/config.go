@@ -7,6 +7,7 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
@@ -35,6 +36,7 @@ var (
 
 // GetConfig loads environment variables into the ServerConfig struct and returns
 // a pointer to the singleton instance.
+
 func GetConfig() *ServerConfig {
 	once.Do(func() {
 		// 设置读取的配置文件名和路径
@@ -63,6 +65,14 @@ func GetConfig() *ServerConfig {
 }
 
 func GetConfigPath() string {
+	value, exists := os.LookupEnv("CONFIG_PATH")
+	if !exists {
+		logrus.Info("CONFIG_PATH does not exist")
+	} else {
+		logrus.Infof("CONFIG_PATH: %s", value)
+		return filepath.Join(value)
+	}
+
 	// 获取当前工作目录
 	currentDir, err := os.Getwd()
 	if err != nil {
