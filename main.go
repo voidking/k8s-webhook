@@ -24,6 +24,7 @@ func init() {
 	// 设置全局日志配置
 	if conf.Debug {
 		logrus.SetLevel(logrus.DebugLevel)
+		logrus.SetReportCaller(true)
 	} else {
 		logrus.SetLevel(logrus.InfoLevel)
 	}

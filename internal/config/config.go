@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-type ServerConfig struct {
+type Config struct {
 	HTTP struct {
 		Addr string // http监听端口
 	}
@@ -30,14 +30,14 @@ type ServerConfig struct {
 }
 
 var (
-	instance *ServerConfig
+	instance *Config
 	once     sync.Once
 )
 
 // GetConfig loads environment variables into the ServerConfig struct and returns
 // a pointer to the singleton instance.
 
-func GetConfig() *ServerConfig {
+func GetConfig() *Config {
 	once.Do(func() {
 		// 设置读取的配置文件名和路径
 		viper.SetConfigName("config")        // 配置文件名，不需要扩展名
@@ -55,7 +55,7 @@ func GetConfig() *ServerConfig {
 		viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_", "-", "_"))
 
 		// 将配置文件反序列化为 config 对象
-		var config *ServerConfig
+		var config *Config
 		if err := viper.Unmarshal(&config); err != nil {
 			panic(err)
 		}
