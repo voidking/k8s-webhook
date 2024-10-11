@@ -6,16 +6,26 @@ Reference:
 - [Gin 官方文档](https://gin-gonic.com/zh-cn/docs/introduction/)
 - [viper](https://github.com/spf13/viper)
 
-# Runtime
-- go version 1.22.2
-- kubernetes version 1.20.14 - 1.24.8
-
 # Features
 - Update pod container image
 - TODO: xxx 
 - TODO: yyy
 
+# Deploy to K8S
+## Deploy all components
+```bash
+# ./scripts/uninstall-dev.sh
+./scripts/install.sh
+```
+
+## Test Webhook Service
+TODO
+
 # Development
+## Runtime
+- go version 1.22.2
+- kubernetes version 1.20.14 - 1.24.8
+
 ## Install dependencies
 ```bash
 go mod tidy
@@ -58,40 +68,6 @@ curl -X POST https://localhost:8443 --cacert $HOME/cert/ca.pem -H "Content-type:
 curl -X POST https://localhost:8443/pod/mutating --cacert $HOME/cert/ca.pem -H "Content-type: application/json" -d@test/data/create-pod-webhook.json
 ```
 
-# Test on K8S Node
-## Prepare K8S Resources
-The same as local development.
-
-## Prepare Program and Certificate
-1. build a linux binary
-```bash
-CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-w -s" -o k8s-webhook
-```
-
-2. Upload the binary to node
-
-3. Copy certs to node path `/etc/cert`
-
-## Run Program
-1. Export environment variables
-```bash
-export HTTPS_CERT="/etc/cert/cert.pem" HTTPS_KEY="/etc/cert/key.pem"
-```
-
-2. Run the binary
-```bash
-./k8s-webhook
-```
-
-## Test Webhook Service
-TODO
-
-# Get k8s-webhook Image
-## Download from DockerHub
-```bash
-docker pull voidking/k8s-webhook:v0.0.1
-```
-
 ## Build by Yourself
 Build docker image
 ```bash
@@ -106,16 +82,6 @@ docker build \
   --build-arg HTTPS_PROXY=http://192.168.56.1:7890 \
   -t k8s-webhook:latest .
 ```
-
-# Deploy to K8S
-## Deploy all components
-```bash
-# ./scripts/uninstall-dev.sh
-./scripts/install.sh
-```
-
-## Test Webhook Service
-TODO
 
 # How to Prepare a TLS Certificate
 k8s-webhook has been configured a self-signed TLS with ten years expiration.   
