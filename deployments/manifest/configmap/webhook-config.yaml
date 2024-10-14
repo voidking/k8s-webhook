@@ -23,7 +23,13 @@ data:
       containers:
       - image: voidking/debian:bookworm-slim-curl
         name: debian
-        resources: {}
+        resources: 
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            cpu: '1'
+            memory: 512Mi
         command: ["/bin/sh", "-c"]
         args:
         - tail -f /dev/null
