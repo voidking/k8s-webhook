@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"k8s-webhook/internal/config"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mattbaird/jsonpatch"
@@ -28,9 +29,13 @@ func (*PodAdmission) HandleMutatingAdmission(c *gin.Context) {
 		return
 	}
 
-	for key, value := range pod.Labels {
-		logrus.Debugf("Key: %s, Value: %s", key, value)
-	}
+	// 验证pod label
+	// for key, value := range pod.Labels {
+	// 	logrus.Debugf("Key: %s, Value: %s", key, value)
+	// }
+
+	// 读取pod模板
+	podTemplate := config.GetPodTemplate()
 
 	// 修改pod定义
 	for i := range pod.Spec.Containers {
@@ -38,8 +43,27 @@ func (*PodAdmission) HandleMutatingAdmission(c *gin.Context) {
 		if i != 0 {
 			break
 		}
+		tplContainer := &podTemplate.Spec.Containers[i]
+		// 修改镜像
 		container := &pod.Spec.Containers[i]
-		container.Image = "newimage"
+		container.Image = tplContainer.Image
+		// 修改env，无则新增，有则修改
+		// logrus.Debugln("template env:", tplContainer.Env)
+		// logrus.Debugln("env:", container.Env)
+		for _, tplEnv := range tplContainer.Env {
+			found := false
+			for j := range container.Env {
+				env := &container.Env[j]
+				if tplEnv.Name == env.Name {
+					env.Value = tplEnv.Value
+					found = true
+					break
+				}
+			}
+			if !found {
+				container.Env = append(container.Env, tplEnv)
+			}
+		}
 	}
 
 	// 构造response

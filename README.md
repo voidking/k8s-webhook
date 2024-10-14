@@ -7,7 +7,7 @@ Reference:
 - [viper](https://github.com/spf13/viper)
 
 # Features
-- Update pod container image
+- When creating a pod, modify the pod definition: image, env, labels, etc.
 - TODO: xxx 
 - TODO: yyy
 

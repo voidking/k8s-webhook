@@ -6,7 +6,8 @@ kubectl create ns k8s-webhook
 kubectl apply -f ../deployments/manifest/mwc.yaml
 
 # Create Deployment
-kubectl apply -f ../deployments/manifest/configmap/webhook-env-cm.yaml
+kubectl apply -f ../deployments/manifest/configmap/webhook-env.yaml
+kubectl apply -f ../deployments/manifest/configmap/webhook-config.yaml
 kubectl apply -f ../deployments/manifest/deployment.yaml
 
 # Create Service

@@ -1,0 +1,35 @@
+apiVersion: v1
+data:
+  config.yaml: |-
+    http:
+      addr: 0.0.0.0:8080
+    https:
+      addr: 0.0.0.0:8443
+      enable: true
+      cert: /etc/k8s-webhook/cert/cert.pem
+      key: /etc/k8s-webhook/cert/key.pem
+    debug: true
+    timezone: Asia/Shanghai
+    logpath: ./logs
+  podtemplate.yaml: |-
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: podtemplate
+      name: podtemplate
+    spec:
+      containers:
+      - image: voidking/debian:bookworm-slim-curl
+        name: debian
+        resources: {}
+        command: ["/bin/sh", "-c"]
+        args:
+        - tail -f /dev/null
+    status: {}
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: webhook-config
+  namespace: k8s-webhook

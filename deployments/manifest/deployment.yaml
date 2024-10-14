@@ -26,4 +26,18 @@ spec:
         - configMapRef:
             name: webhook-env
         resources: {}
+        volumeMounts:
+        - name: config
+          mountPath: "/etc/k8s-webhook/configs"
+          readOnly: true
+    volumes:
+    - name: config
+      configMap:
+        name: webhook-config
+        # 来自 ConfigMap 的一组键，将被创建为文件
+        items:
+        - key: "config.yaml"
+          path: "config.yaml"
+        - key: "podtemplate.yaml"
+          path: "podtemplate.yaml"
 status: {}

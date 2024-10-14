@@ -13,4 +13,9 @@ spec:
     command: ["/bin/sh", "-c"]
     args:
     - tail -f /dev/null
+    env:
+    - name: ENV
+      value: test
+    - name: ENV3
+      value: test
 status: {}

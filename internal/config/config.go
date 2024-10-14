@@ -67,7 +67,7 @@ func GetConfig() *Config {
 func GetConfigPath() string {
 	value, exists := os.LookupEnv("CONFIG_PATH")
 	if !exists {
-		logrus.Info("CONFIG_PATH does not exist")
+		logrus.Info("CONFIG_PATH does not exist, use default path ./configs")
 	} else {
 		logrus.Infof("CONFIG_PATH: %s", value)
 		return filepath.Join(value)

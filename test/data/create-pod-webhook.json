@@ -37,6 +37,16 @@
                     {
                         "name": "nginx-container",
                         "image": "nginx:latest",
+                        "env": [
+                            {
+                                "name": "ENV",
+                                "value": "dev"
+                            },
+                            {
+                                "name": "ENV2",
+                                "value": "dev"
+                            }
+                        ],
                         "ports": [
                             {
                                 "containerPort": 80
