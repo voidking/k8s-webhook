@@ -2,8 +2,10 @@ apiVersion: v1
 kind: Pod
 metadata:
   creationTimestamp: null
-  labels:
-    run: podtemplate
+  #labels:
+  #  run: podtemplate
+  #annotations:
+  #  run: podtemplate
   name: podtemplate
 spec:
   containers:

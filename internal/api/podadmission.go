@@ -43,15 +43,15 @@ func (*PodAdmission) HandleMutatingAdmission(c *gin.Context) {
 		// if i != 0 {
 		// 	break
 		// }
-		tplContainer := &podTemplate.Spec.Containers[i]
+		containerTpl := &podTemplate.Spec.Containers[i]
 		// 修改容器名和镜像
 		container := &pod.Spec.Containers[i]
-		container.Name = tplContainer.Name
-		container.Image = tplContainer.Image
+		container.Name = containerTpl.Name
+		container.Image = containerTpl.Image
 		// 修改env，无则新增，有则修改
 		// logrus.Debugln("template env:", tplContainer.Env)
 		// logrus.Debugln("env:", container.Env)
-		for _, tplEnv := range tplContainer.Env {
+		for _, tplEnv := range containerTpl.Env {
 			found := false
 			for j := range container.Env {
 				env := &container.Env[j]
@@ -66,11 +66,50 @@ func (*PodAdmission) HandleMutatingAdmission(c *gin.Context) {
 			}
 		}
 		// 修改启动命令，包括 command 和 args
-		container.Command = tplContainer.Command
-		container.Args = tplContainer.Args
+		container.Command = containerTpl.Command
+		container.Args = containerTpl.Args
 		// 修改资源限制
-		container.Resources = tplContainer.Resources
+		container.Resources = containerTpl.Resources
+
 	}
+
+	// 修改 labels ，无则新增，有则修改
+	for tplKey, tplValue := range podTemplate.ObjectMeta.Labels {
+		found := false
+		for key, _ := range pod.ObjectMeta.Labels {
+			if tplKey == key {
+				pod.ObjectMeta.Labels[key] = tplValue
+				found = true
+				break
+			}
+		}
+		if !found {
+			if pod.ObjectMeta.Labels == nil {
+				pod.ObjectMeta.Labels = make(map[string]string)
+			}
+			pod.ObjectMeta.Labels[tplKey] = tplValue
+		}
+	}
+	// logrus.Debugln("labels:", pod.ObjectMeta.Labels)
+
+	// 修改 annotations ，无则新增，有则修改
+	for tplKey, tplValue := range podTemplate.ObjectMeta.Annotations {
+		found := false
+		for key, _ := range pod.ObjectMeta.Annotations {
+			if tplKey == key {
+				pod.ObjectMeta.Annotations[key] = tplValue
+				found = true
+				break
+			}
+		}
+		if !found {
+			if pod.ObjectMeta.Annotations == nil {
+				pod.ObjectMeta.Annotations = make(map[string]string)
+			}
+			pod.ObjectMeta.Annotations[tplKey] = tplValue
+		}
+	}
+	// logrus.Debugln("annotations:", pod.ObjectMeta.Annotations)
 
 	// 构造response
 	resp := &v1.AdmissionResponse{
