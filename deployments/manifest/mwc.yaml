@@ -17,6 +17,9 @@ webhooks:
     matchExpressions:
     - key: "webhook"
       operator: "Exists"
+    # - key: "app"
+    #   operator: "In"
+    #   values: ["myapp"]
   rules:
   - operations: ["CREATE","UPDATE"]
     apiGroups: ["*"]
