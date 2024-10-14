@@ -44,8 +44,9 @@ func (*PodAdmission) HandleMutatingAdmission(c *gin.Context) {
 			break
 		}
 		tplContainer := &podTemplate.Spec.Containers[i]
-		// 修改镜像
+		// 修改容器名和镜像
 		container := &pod.Spec.Containers[i]
+		container.Name = tplContainer.Name
 		container.Image = tplContainer.Image
 		// 修改env，无则新增，有则修改
 		// logrus.Debugln("template env:", tplContainer.Env)
@@ -67,6 +68,8 @@ func (*PodAdmission) HandleMutatingAdmission(c *gin.Context) {
 		// 修改启动命令，包括 command 和 args
 		container.Command = tplContainer.Command
 		container.Args = tplContainer.Args
+		// 修改资源限制
+		container.Resources = tplContainer.Resources
 	}
 
 	// 构造response

@@ -7,7 +7,7 @@ Reference:
 - [viper](https://github.com/spf13/viper)
 
 # Features
-- Modify k8s pod definition: image, env, command, args, etc.
+- Modify k8s pod definition: image, env, command, args, resources, etc.
 - Define pod template in configuration file `podtemplate.yaml`
 
 # Deploy to K8S
