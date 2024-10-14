@@ -19,7 +19,9 @@ Reference:
 ```
 
 ## Test Webhook Service
-TODO
+```bash
+kubectl apply -f deployments/manifest/test/testpod.yaml
+```
 
 # Development
 ## Runtime

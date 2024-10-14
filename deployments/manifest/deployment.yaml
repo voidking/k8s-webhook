@@ -18,7 +18,6 @@ spec:
       labels:
         app: webhook
     spec:
-      serviceAccountName: webhook
       containers:
       - name: k8s-webhook
         image: voidking/k8s-webhook:v0.0.1
@@ -30,14 +29,14 @@ spec:
         - name: config
           mountPath: "/etc/k8s-webhook/configs"
           readOnly: true
-    volumes:
-    - name: config
-      configMap:
-        name: webhook-config
-        # 来自 ConfigMap 的一组键，将被创建为文件
-        items:
-        - key: "config.yaml"
-          path: "config.yaml"
-        - key: "podtemplate.yaml"
-          path: "podtemplate.yaml"
+      volumes:
+      - name: config
+        configMap:
+          name: webhook-config
+          # 来自 ConfigMap 的一组键，将被创建为文件
+          items:
+          - key: "config.yaml"
+            path: "config.yaml"
+          - key: "podtemplate.yaml"
+            path: "podtemplate.yaml"
 status: {}
