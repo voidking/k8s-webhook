@@ -7,9 +7,8 @@ Reference:
 - [viper](https://github.com/spf13/viper)
 
 # Features
-- When creating a pod, modify the pod definition: image, env, labels, etc.
-- TODO: xxx 
-- TODO: yyy
+- Modify k8s pod definition: image, env, command, args, etc.
+- Define pod template in configuration file `podtemplate.yaml`
 
 # Deploy to K8S
 ## Deploy all components
