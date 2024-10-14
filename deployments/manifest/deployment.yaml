@@ -29,6 +29,22 @@ spec:
         - name: config
           mountPath: "/etc/k8s-webhook/configs"
           readOnly: true
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 10
+          periodSeconds: 30
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 10
+          periodSeconds: 30
       volumes:
       - name: config
         configMap:
