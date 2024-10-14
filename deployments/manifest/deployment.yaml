@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: k8s-webhook
-        image: voidking/k8s-webhook:v0.1.0
+        image: voidking/k8s-webhook:v0.1.1
         envFrom:
         - configMapRef:
             name: webhook-env

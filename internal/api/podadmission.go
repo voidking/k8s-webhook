@@ -76,7 +76,7 @@ func (*PodAdmission) HandleMutatingAdmission(c *gin.Context) {
 	// 修改 labels ，无则新增，有则修改
 	for tplKey, tplValue := range podTemplate.ObjectMeta.Labels {
 		found := false
-		for key, _ := range pod.ObjectMeta.Labels {
+		for key := range pod.ObjectMeta.Labels {
 			if tplKey == key {
 				pod.ObjectMeta.Labels[key] = tplValue
 				found = true
@@ -95,7 +95,7 @@ func (*PodAdmission) HandleMutatingAdmission(c *gin.Context) {
 	// 修改 annotations ，无则新增，有则修改
 	for tplKey, tplValue := range podTemplate.ObjectMeta.Annotations {
 		found := false
-		for key, _ := range pod.ObjectMeta.Annotations {
+		for key := range pod.ObjectMeta.Annotations {
 			if tplKey == key {
 				pod.ObjectMeta.Annotations[key] = tplValue
 				found = true
