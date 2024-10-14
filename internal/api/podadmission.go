@@ -64,6 +64,9 @@ func (*PodAdmission) HandleMutatingAdmission(c *gin.Context) {
 				container.Env = append(container.Env, tplEnv)
 			}
 		}
+		// 修改启动命令，包括 command 和 args
+		container.Command = tplContainer.Command
+		container.Args = tplContainer.Args
 	}
 
 	// 构造response
