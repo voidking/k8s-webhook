@@ -39,10 +39,10 @@ func (*PodAdmission) HandleMutatingAdmission(c *gin.Context) {
 
 	// 修改pod定义
 	for i := range pod.Spec.Containers {
-		// 当前只处理第一个容器
-		if i != 0 {
-			break
-		}
+		// 只处理第一个容器
+		// if i != 0 {
+		// 	break
+		// }
 		tplContainer := &podTemplate.Spec.Containers[i]
 		// 修改容器名和镜像
 		container := &pod.Spec.Containers[i]
