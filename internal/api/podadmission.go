@@ -38,11 +38,16 @@ func (*PodAdmission) HandleMutatingAdmission(c *gin.Context) {
 	podTemplate := config.GetPodTemplate()
 
 	// 修改pod定义
-	for i := range pod.Spec.Containers {
+	for i := range podTemplate.Spec.Containers {
 		// 只处理第一个容器
 		// if i != 0 {
 		// 	break
 		// }
+
+		// pod模板中有多少个容器，就修改多少个容器
+		if i >= len(pod.Spec.Containers) {
+			break
+		}
 		containerTpl := &podTemplate.Spec.Containers[i]
 		// 修改容器名和镜像
 		container := &pod.Spec.Containers[i]
