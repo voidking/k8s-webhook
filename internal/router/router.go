@@ -17,7 +17,8 @@ func SetRouter() (*gin.Engine, error) {
 	podac := api.PodAdmission{}
 
 	// 根路由
-	router.Any("/", nsac.HandleAdmission)
+	// router.Any("/", nsac.HandleAdmission)
+	router.GET("/", nsac.HandleAdmission)
 	// 探活路由
 	router.GET("/healthz", api.Healthz)
 	// pod相关路由
