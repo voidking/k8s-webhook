@@ -49,13 +49,15 @@ func (*PodAdmission) HandleMutatingAdmission(c *gin.Context) {
 			break
 		}
 		containerTpl := &podTemplate.Spec.Containers[i]
-		// 修改容器名和镜像
 		container := &pod.Spec.Containers[i]
-		container.Name = containerTpl.Name
-		container.Image = containerTpl.Image
+		// 修改容器名和镜像
+		if containerTpl.Name != "" {
+			container.Name = containerTpl.Name
+		}
+		if containerTpl.Image != "" {
+			container.Image = containerTpl.Image
+		}
 		// 修改env，无则新增，有则修改
-		// logrus.Debugln("template env:", tplContainer.Env)
-		// logrus.Debugln("env:", container.Env)
 		for _, tplEnv := range containerTpl.Env {
 			found := false
 			for j := range container.Env {
@@ -71,11 +73,19 @@ func (*PodAdmission) HandleMutatingAdmission(c *gin.Context) {
 			}
 		}
 		// 修改启动命令，包括 command 和 args
-		container.Command = containerTpl.Command
-		container.Args = containerTpl.Args
+		if containerTpl.Command != nil {
+			container.Command = containerTpl.Command
+		}
+		if containerTpl.Args != nil {
+			container.Args = containerTpl.Args
+		}
 		// 修改资源限制
-		container.Resources = containerTpl.Resources
-
+		if containerTpl.Resources.Requests != nil {
+			container.Resources.Requests = containerTpl.Resources.Requests
+		}
+		if containerTpl.Resources.Limits != nil {
+			container.Resources.Limits = containerTpl.Resources.Limits
+		}
 	}
 
 	// 修改 labels ，无则新增，有则修改
