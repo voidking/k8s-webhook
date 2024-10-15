@@ -33,18 +33,20 @@ spec:
           httpGet:
             path: /healthz
             port: 8080
-          initialDelaySeconds: 10
+          initialDelaySeconds: 5
           timeoutSeconds: 5
-          periodSeconds: 30
+          periodSeconds: 10
           failureThreshold: 3
           successThreshold: 1
         readinessProbe:
           httpGet:
             path: /healthz
             port: 8080
-          initialDelaySeconds: 10
+          initialDelaySeconds: 5
           timeoutSeconds: 5
-          periodSeconds: 30
+          periodSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
       volumes:
       - name: config
         configMap:
