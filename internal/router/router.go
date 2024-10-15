@@ -7,7 +7,12 @@ import (
 )
 
 func SetRouter() (*gin.Engine, error) {
-	router := gin.Default()
+	// router := gin.Default()
+	router := gin.New()
+	// router.Use(gin.Logger())
+	// router.Use(CustomLogger())
+	router.Use(LoggerNoHealthz())
+
 	nsac := api.NamespaceAdmission{}
 	podac := api.PodAdmission{}
 
