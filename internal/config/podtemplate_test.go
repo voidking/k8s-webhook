@@ -6,7 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// go test -v test/internal/config/podtemplate_test.go -run TestGetPodTemplate
+// go test -v -run TestGetPodTemplate k8s-webhook/internal/config
 func TestGetPodTemplate(t *testing.T) {
 	pod := GetPodTemplate()
 	logrus.Info(pod)
