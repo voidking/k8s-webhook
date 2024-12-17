@@ -34,7 +34,7 @@ go mod tidy
 
 ## Unit Test
 ```bash
-go test -run TestServeReturnsCorrectJson  k8s-webhook/internal/server
+go test -v -run TestServeReturnsCorrectJson k8s-webhook/internal/server
 ```
 
 ## Prepare K8S Resources

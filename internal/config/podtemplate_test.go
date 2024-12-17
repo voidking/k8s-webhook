@@ -1,7 +1,6 @@
-package test
+package config
 
 import (
-	"k8s-webhook/internal/config"
 	"testing"
 
 	"github.com/sirupsen/logrus"
@@ -9,6 +8,6 @@ import (
 
 // go test -v test/internal/config/podtemplate_test.go -run TestGetPodTemplate
 func TestGetPodTemplate(t *testing.T) {
-	pod := config.GetPodTemplate()
+	pod := GetPodTemplate()
 	logrus.Info(pod)
 }
